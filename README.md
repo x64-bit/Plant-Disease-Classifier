@@ -1,5 +1,4 @@
 # Plant-Disease-Classifier
---
 ## Overview
 This repository will eventually house my 2020 science fair project. 
 The minimum goal for this year is to train a CNN on the PlantVillage dataset in order to classify plant diseases. The overarching goal would be to design a drone capable of automating agricultural surveyal for its owner, featuring soil analysis and data visualization.
