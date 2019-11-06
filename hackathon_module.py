@@ -1,3 +1,7 @@
+# Hackathon neural network.
+# The model compiles but I have a strong feeling that the input isn't setup right...
+# I'm going to create my own sample network to ensure that it works then will expand
+
 # import the big boy model
 from keras.applications.mobilenet_v2 import MobileNetV2
 from keras.preprocessing.image import  ImageDataGenerator
