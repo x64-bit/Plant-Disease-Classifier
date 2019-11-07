@@ -30,7 +30,7 @@ optimizer = Adam(lr=0.001)
 img_rows, img_cols = 28, 28
 # Training parameters
 batch_size = 60
-epochs = 5
+epochs = 25
 
 
 
@@ -43,7 +43,7 @@ epochs = 5
 x_train = x_train.reshape(x_train.shape[0], img_rows, img_cols, 1)
 x_test = x_test.reshape(x_test.shape[0], img_rows, img_cols, 1)
 input_shape = (img_rows, img_cols, 1)
-# data conversion so NN doesn't bug out - research?
+# Data conversion so NN doesn't bug out - research?
 x_train = x_train.astype('float32')
 x_test = x_test.astype('float32')
 x_train /= 255
@@ -84,11 +84,11 @@ model.add(Dropout(0.2))
 # global max pooling first pools all feature maps together,
 # then chugs into an FC layer
 model.add(Flatten())
-# decision layer
+# Decision layer
 model.add(Dense(10, activation='softmax'))
 
 
-
+# Compile and Train
 model.compile(optimizer=optimizer,
                 loss='categorical_crossentropy',
                 metrics=['accuracy'])
