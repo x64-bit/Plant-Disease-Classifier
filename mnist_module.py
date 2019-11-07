@@ -1,5 +1,3 @@
-__author__ = "Anjo Pagdanganan"
-
 # MNIST dataset
 from keras.datasets import mnist
 
