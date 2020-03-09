@@ -1,4 +1,6 @@
-# MNIST dataset
+from tensorflow import keras
+
+# MNIST
 from keras.datasets import mnist
 
 # Layers

@@ -26,9 +26,8 @@ optimizer = Adam(lr=0.001)
 img_rows, img_cols = 256, 256
 input_shape = (img_rows, img_cols, 3)
 # Training parameters
-batch_size = 60
+batch_size = 100
 epochs = 25
-seed = 69
 
 
 train_datagen = ImageDataGenerator(
@@ -41,17 +40,16 @@ train_datagen = ImageDataGenerator(
 test_datagen = ImageDataGenerator(rescale=1./255)
 
 train_generator = train_datagen.flow_from_directory(
-    directory="train",
-    class_mode="categorical",
-    seed=seed
+    directory="output/train",
+    class_mode="categorical"
 )
 
-test_generator = test_datagen.flow_from_directory("train")
+validation_generator = test_datagen.flow_from_directory("output/val")
 
 print("input shape", input_shape)
 # Block 1
 model = Sequential()
-model.add(Conv2D(16, kernel_size=(3, 3),
+model.add(Conv2D(64, kernel_size=(3, 3),
                  activation=None, input_shape=input_shape))
 # Batch norm to make sure weights don't go haywire
 model.add(BatchNormalization())
@@ -67,7 +65,7 @@ model.add(MaxPool2D(strides=2))
 model.add(Dropout(0.2))
 
 # Block 3
-model.add(Conv2D(64, kernel_size=(3, 3), activation=None))
+model.add(Conv2D(16, kernel_size=(3, 3), activation=None))
 model.add(BatchNormalization())
 model.add(Activation('relu'))
 model.add(MaxPool2D(strides=2))
@@ -87,8 +85,9 @@ model.compile(optimizer=optimizer,
                 metrics=['accuracy'])
 model.fit_generator(
     train_generator,
-    steps_per_epoch=100,
-    epochs=epochs)
-model.evaluate_generator(generator=test_generator, steps=50)
+    steps_per_epoch=544,    # ceil(54309 imgs / 100 batch size)
+    epochs=epochs, 
+    validation_data=validation_generator)
+model.evaluate_generator(generator=validation_generator, steps=50)
 # print("loss:", score[0])
 # print("acc:", score[1])
